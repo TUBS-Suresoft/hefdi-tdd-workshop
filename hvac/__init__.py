@@ -20,7 +20,7 @@ class HVAC(Protocol):
     def start_heating(self) -> None:
         raise NotImplementedError
 
-    def get_temperature(self) -> int:
+    def get_temperature(self) -> int | None:
         raise NotImplementedError
 
 
@@ -38,7 +38,10 @@ class Controller:
         self.hvac.start_blowing()
         self.hvac.stop_heating()
 
-        its_too_cold = self.hvac.get_temperature() < self.desired_temperature + self.temperature_delta
-        if (its_too_cold):
-            self.hvac.stop_cooling()
-            self.hvac.start_heating()
+        if self.hvac.get_temperature() is None:
+            return
+        else:
+            its_too_cold = self.hvac.get_temperature() < self.desired_temperature + self.temperature_delta
+            if (its_too_cold):
+                self.hvac.stop_cooling()
+                self.hvac.start_heating()
