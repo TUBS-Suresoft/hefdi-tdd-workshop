@@ -1,5 +1,6 @@
 from typing import Protocol
 
+
 class HVAC(Protocol):
     def stop_heating(self):
         raise NotImplementedError
