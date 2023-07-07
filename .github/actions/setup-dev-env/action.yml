@@ -1,0 +1,13 @@
+name: setup-development-environment
+inputs:
+  python-version:
+    required: true
+    description: "Specify the python version to be used"
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{inputs.python-version}}
+    - run: pip install -r requirements.txt
+      shell: bash

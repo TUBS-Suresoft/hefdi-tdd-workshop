@@ -1,0 +1,29 @@
+name: test-suite
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-dev-env
+        with:
+          python-version: ${{matrix.python-version}}
+      - name: run-pytest
+        run: python -m pytest
+  lint:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-dev-env
+        with:
+          python-version: ${{matrix.python-version}}
+      - name: format-check
+        run: black --check --diff hvac
+      - name: type-check
+        run: mypy --strict hvac
