@@ -11,3 +11,15 @@ jobs:
       - run: pip install pytest
       - name: run-pytest
         run: python -m pytest
+  lint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - run: pip install black mypy
+      - name: format-check
+        run: black --check --diff hvac
+      - name: type-check
+        run: mypy --strict hvac
