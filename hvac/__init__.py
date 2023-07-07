@@ -2,13 +2,13 @@ from typing import Protocol
 
 
 class HVAC(Protocol):
-    def stop_heating(self):
+    def stop_heating(self) -> None:
         raise NotImplementedError
 
-    def stop_cooling(self):
+    def stop_cooling(self) -> None:
         raise NotImplementedError
 
-    def stop_blowing(self):
+    def stop_blowing(self) -> None:
         raise NotImplementedError
 
 
